@@ -15,11 +15,10 @@ const ELEMENTS = {
 let tracks = []
 let currentTrack = -1;
 
+
 async function AddAudio(file){
 
   if(file.type == "application/x-zip-compressed"){
-    alert("ZIP support is not implemented yet!")
-    return
     var new_zip = new JSZip();
 
     let zip = await new_zip.loadAsync(file)
