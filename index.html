@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPLP</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Upload Files</h2>
+    <input type="file" id="fileInput" multiple>
+    <hr>
+    <div id="controls">
+        <h2>Controls</h2>
+        <p>Current Track: <span id="current">None</span></p>
+        <p>Current Time: <span id="time">00:00:00</span></p>
+        <p>Status: <span id="status">None</span></p>
+
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+        <button id="next">Next</button>
+        <button id="shuffle">Shuffle</button>
+        
+        <br>
+        <label for="volume">Volume</label>
+        <input type="range" value="100" id="volume" min="0" max="100">
+    </div>
+    <hr>
+    <h1>Playlist</h1>
+    <div id="playlist">
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
