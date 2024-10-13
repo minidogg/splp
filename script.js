@@ -16,6 +16,16 @@ let tracks = []
 let currentTrack = -1;
 
 async function AddAudio(file){
+
+  if(file.type == "application/x-zip-compressed"){
+    alert("ZIP support is not implemented yet!")
+    return
+    var new_zip = new JSZip();
+
+    let zip = await new_zip.loadAsync(file)
+    console.log(zip)
+    return;
+  }
   let label = document.createElement('p')
   label.textContent = file.name
   ELEMENTS.playlist.appendChild(label)
@@ -49,8 +59,8 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
     
 
     for(let i = 0;i<this.files.length;i++){
-      console.log(this.files[i])
-      await AddAudio(this.files[i])
+        let file = this.files[i]
+        await AddAudio(file);
     }
     
 });
