@@ -28,8 +28,6 @@ async function LoadDataUrlFromFile(file){
 async function AddAudio(file){
 
   if(typeof(file)!="undefined" && file.type == "application/x-zip-compressed"){
-    alert("No zip support yet :(")
-    return;
     var new_zip = new JSZip();
 
     let zip = await new_zip.loadAsync(file)
