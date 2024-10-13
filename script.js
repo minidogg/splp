@@ -73,10 +73,10 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
 
 function PlayNextTrack(){
   if(tracks.length==0)return;
-  if(tracks[currentTrack]){
-    tracks[currentTrack].pause()
-    tracks[currentTrack].currentTime = 0;
-  };
+  tracks.forEach(e=>{
+    e.pause()
+    e.currentTime = 0;
+  })
   currentTrack = (currentTrack+1)%tracks.length;
   tracks[currentTrack].play()
   ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
