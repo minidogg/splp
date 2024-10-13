@@ -80,6 +80,7 @@ function PlayNextTrack(){
   currentTrack = (currentTrack+1)%tracks.length;
   tracks[currentTrack].play()
   ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
+  document.title = "SPLP - "+ELEMENTS.current.textContent
 
   tracks[currentTrack].addEventListener("ended", PlayNextTrack)
 }
