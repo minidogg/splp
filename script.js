@@ -26,7 +26,8 @@ async function LoadDataUrlFromFile(file){
 }
 
 async function AddAudio(file, dataUrl=undefined){
-
+  alert("ZIP Support hasn't been implemented")
+  return;
   if(typeof(file)!="undefined" && file.type == "application/x-zip-compressed"){
     var new_zip = new JSZip();
 
