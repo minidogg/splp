@@ -15,6 +15,21 @@ const ELEMENTS = {
 let tracks = []
 let currentTrack = -1;
 
+async function AddAudio(file){
+  let label = document.createElement('p')
+  label.textContent = file.name
+  ELEMENTS.playlist.appendChild(label)
+
+  let audioSrc = await LoadDataUrlFromFile(file)
+  let audio = document.createElement("audio")
+  audio.controls = false
+  audio.setAttribute("name", file.name)
+
+  audio.src = audioSrc
+  tracks.push(audio)
+  ELEMENTS.playlist.appendChild(audio)
+}
+
 ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged() {
     if (this.files.length === 0) {
       console.log('No file selected.');
@@ -35,18 +50,7 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
 
     for(let i = 0;i<this.files.length;i++){
       console.log(this.files[i])
-      let label = document.createElement('p')
-      label.textContent = this.files[i].name
-      ELEMENTS.playlist.appendChild(label)
-
-      let audioSrc = await LoadDataUrlFromFile(this.files[i])
-      let audio = document.createElement("audio")
-      audio.controls = false
-      audio.setAttribute("name", this.files[i].name)
-  
-      audio.src = audioSrc
-      tracks.push(audio)
-      ELEMENTS.playlist.appendChild(audio)
+      await AddAudio(this.files[i])
     }
     
 });
