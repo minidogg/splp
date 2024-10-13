@@ -15,16 +15,33 @@ const ELEMENTS = {
 let tracks = []
 let currentTrack = -1;
 
+async function LoadDataUrlFromFile(file){
+  const reader = new FileReader();
+  reader.readAsDataURL(file)
+  return new Promise((r)=>{
+    reader.onload = ()=>{
+      r(reader.result);
+    }
+  })
+}
 
 async function AddAudio(file){
 
-  if(file.type == "application/x-zip-compressed"){
+  if(typeof(file)!="undefined" && file.type == "application/x-zip-compressed"){
+    alert("No zip support yet :(")
+    return;
     var new_zip = new JSZip();
 
     let zip = await new_zip.loadAsync(file)
-    console.log(zip)
+    let files = await zip.files
+    for(let file of Object.keys(files)){
+      if(!files[file].dir){
+        AddAudio(await files[file].async('blob'));
+      }
+    }
     return;
   }
+
   let label = document.createElement('p')
   label.textContent = file.name
   ELEMENTS.playlist.appendChild(label)
@@ -43,17 +60,6 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
     if (this.files.length === 0) {
       console.log('No file selected.');
       return;
-    }
-  
-
-    async function LoadDataUrlFromFile(file){
-      const reader = new FileReader();
-      reader.readAsDataURL(file)
-      return new Promise((r)=>{
-        reader.onload = ()=>{
-          r(reader.result);
-        }
-      })
     }
     
 
