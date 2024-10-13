@@ -25,7 +25,7 @@ async function LoadDataUrlFromFile(file){
   })
 }
 
-async function AddAudio(file){
+async function AddAudio(file, dataUrl=undefined){
 
   if(typeof(file)!="undefined" && file.type == "application/x-zip-compressed"){
     var new_zip = new JSZip();
@@ -34,7 +34,8 @@ async function AddAudio(file){
     let files = await zip.files
     for(let file of Object.keys(files)){
       if(!files[file].dir){
-        AddAudio(await files[file].async('blob'));
+        let dataUrl = await files[file].async('text');
+        AddAudio(await files[file], dataUrl);
       }
     }
     return;
@@ -44,7 +45,7 @@ async function AddAudio(file){
   label.textContent = file.name
   ELEMENTS.playlist.appendChild(label)
 
-  let audioSrc = await LoadDataUrlFromFile(file)
+  let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
   let audio = document.createElement("audio")
   audio.controls = false
   audio.setAttribute("name", file.name)
