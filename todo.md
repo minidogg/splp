@@ -1,2 +1,5 @@
 - Add zip file support
 - Make it so there are controls that can be accessed from the weird box that shows up on volume change.
+- Icons
+- Load from URL
+- Ability to remove tracks from playlist
