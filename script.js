@@ -52,7 +52,7 @@ async function AddAudio(file, dataUrl=undefined){
 
   audio.src = audioSrc
   tracks.push(audio)
-  ELEMENTS.playlist.appendChild(audio)
+  // ELEMENTS.playlist.appendChild(audio)
 }
 
 function AddTrackButtons(){
