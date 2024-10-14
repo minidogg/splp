@@ -6,3 +6,4 @@
 - Sleep timer
 - Time slider
 - Themes
+- only have one audio element at a time. then simply store the data strings 
