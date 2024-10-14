@@ -62,7 +62,9 @@ function AddTrackButtons(){
     button.textContent = e.getAttribute("name")
     button.style.display = "block"
     button.onclick = ()=>{
-
+      StopAllTracks()
+      currentTrack = i-1
+      PlayNextTrack()
     }
     ELEMENTS.playlist.appendChild(button)
   }
