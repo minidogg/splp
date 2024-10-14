@@ -152,12 +152,13 @@ ELEMENTS.volume.addEventListener("input", ()=>{
 ELEMENTS.previous.addEventListener("click", ()=>{
   if(tracks.length==0)return;
   StopAllTracks()
-  currentTrack = (currentTrack-1+tracks.length)%tracks.length;
-  tracks[currentTrack].play()
-  ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
-  document.title = "SPLP - "+ELEMENTS.current.textContent
+  currentTrack = (currentTrack-2+tracks.length)%tracks.length;
+  PlayNextTrack()
+  // tracks[currentTrack].play()
+  // ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
+  // document.title = "SPLP - "+ELEMENTS.current.textContent
 
-  tracks[currentTrack].addEventListener("ended", PlayNextTrack)
+  // tracks[currentTrack].addEventListener("ended", PlayNextTrack)
 })
 
 function shuffle(array) {
