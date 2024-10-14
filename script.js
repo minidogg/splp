@@ -12,6 +12,7 @@ const ELEMENTS = {
   "status":document.getElementById("status"),
   "volume":document.getElementById("volume"),
   "playlist":document.getElementById("playlist"),
+  "playlistHeader":document.getElementById("playlistHeader")
 }
 let tracks = []
 let currentTrack = -1;
@@ -55,7 +56,9 @@ async function AddAudio(file, dataUrl=undefined){
 }
 
 function AddTrackButtons(){
-  tracks.forEach((e,i)=>{
+  ELEMENTS.playlistHeader.textContent="Playlist Loading..."
+  for(let i = 0;i<tracks.length;i++){
+    let = tracks[i]
     let button = document.createElement('button')
     button.textContent = e.getAttribute("name")
     button.style.display = "block"
@@ -65,7 +68,9 @@ function AddTrackButtons(){
       PlayNextTrack()
     }
     ELEMENTS.playlist.appendChild(button)
-  })
+  }
+
+  ELEMENTS.playlistHeader.textContent="Playlist"
 }
 
 ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged() {
