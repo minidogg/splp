@@ -104,7 +104,7 @@ async function AddTracksFromUrl(url){
     }
     return;
   }
-  tracks.push(url)
+  tracks.push([/.*\/(.*)/.exec(url)[1], url])
 }
 ELEMENTS.urlForm.addEventListener('submit', async(ev)=>{
   ev.preventDefault()
