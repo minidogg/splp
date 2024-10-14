@@ -44,10 +44,6 @@ async function AddAudio(file, dataUrl=undefined){
     return;
   }
 
-  let label = document.createElement('p')
-  label.textContent = file.name
-  ELEMENTS.playlist.appendChild(label)
-
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
   let audio = document.createElement("audio")
   audio.controls = false
@@ -56,6 +52,14 @@ async function AddAudio(file, dataUrl=undefined){
   audio.src = audioSrc
   tracks.push(audio)
   ELEMENTS.playlist.appendChild(audio)
+}
+
+function AddTrackLabels(){
+  tracks.forEach(e=>{
+    let label = document.createElement('p')
+    label.textContent = e.getAttribute("name")
+    ELEMENTS.playlist.appendChild(label)
+  })
 }
 
 ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged() {
@@ -69,7 +73,7 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
         let file = this.files[i]
         await AddAudio(file);
     }
-    
+    AddTrackLabels()
 });
 
 function StopAllTracks(){
@@ -148,11 +152,7 @@ ELEMENTS.shuffle.addEventListener("click", ()=>{
   if(tracks.length==0)return;
   shuffle(tracks);
   ELEMENTS.playlist.innerHTML = ""
-  tracks.forEach(e=>{
-    let label = document.createElement('p')
-    label.textContent = e.getAttribute("name")
-    ELEMENTS.playlist.appendChild(label)
-  })
+  AddTrackLabels()
 
   currentTrack = -1;
   PlayNextTrack();
