@@ -16,7 +16,8 @@ const ELEMENTS = {
   "status":document.getElementById("status"),
   "volume":document.getElementById("volume"),
   "playlist":document.getElementById("playlist"),
-  "playlistHeader":document.getElementById("playlistHeader")
+  "playlistHeader":document.getElementById("playlistHeader"),
+  "trackCount":document.getElementById("trackCount")
 }
 let tracks = []
 let currentTrack = -1;
@@ -86,6 +87,7 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
         let file = this.files[i]
         await AddAudio(file);
     }
+    ELEMENTS.trackCount.textContent = tracks.length
     AddTrackButtons()
 });
 
