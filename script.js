@@ -108,6 +108,7 @@ async function AddTracksFromUrl(url){
 }
 ELEMENTS.urlForm.addEventListener('submit', async(ev)=>{
   ev.preventDefault()
+  ELEMENTS.urlInput.value = ""
   await AddTracksFromUrl(ELEMENTS.urlInput.value)
 })
 
