@@ -18,6 +18,10 @@ const ELEMENTS = {
   "trackCount":document.getElementById("trackCount"),
   "urlForm":document.getElementById("urlForm"),
   "urlInput":document.getElementById("urlInput"),
+  "themeBackground":document.getElementById("themeBackground"),
+  "themeText":document.getElementById("themeText"),
+  "themeForeground":document.getElementById("themeForeground"),
+  "themeFont":document.getElementById("themeFont"),
 } 
 let tracks = []
 let currentTrack = -1;
@@ -207,3 +211,21 @@ ELEMENTS.shuffle.addEventListener("click", ()=>{
   currentTrack = -1;
   PlayNextTrack();
 })
+
+function SanitizeCSSValue(text){
+  return text.replace(/[<>;:]/g, "")
+}
+
+if(localStorage.getItem("theme")!=null)document.getElementById("theme").innerHTML=localStorage.getItem("theme")
+function UpdateTheme(){
+  document.getElementById("theme").innerHTML = `
+    :root{
+      --background: ${SanitizeCSSValue(ELEMENTS.themeBackground.value)};
+      --text: ${SanitizeCSSValue(ELEMENTS.themeText.value)};
+      --foreground: ${SanitizeCSSValue(ELEMENTS.themeForeground.value)};
+      --font-family: ${SanitizeCSSValue(ELEMENTS.themeFont.value)};
+  }
+  `
+  localStorage.setItem("theme", document.getElementById("theme").innerHTML)
+}
+document.getElementById("updateTheme").addEventListener("click", UpdateTheme)
