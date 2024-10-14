@@ -1,5 +1,5 @@
 *{
-    font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", Arial, Helvetica, sans-serif;
+    font-family: var(--font-family);
 }
 a{
     color: blue;
@@ -10,15 +10,15 @@ a{
     overflow-y: scroll;
 }
 body{
-    background-color: black;
-    color: white;
+    background-color: var(--background);
+    color: var(--text);
 }
 #container{
     min-width: 290px;
     max-width: 900px;
     margin: 0 auto;
     padding: 10px;
-    background-color: rgba(0,0,90,0.5);
+    background-color: var(--foreground);
 }
 button, input[type="file"] {
     background-color: rgba(255,255,255,0.5);
