@@ -17,7 +17,9 @@ const ELEMENTS = {
   "volume":document.getElementById("volume"),
   "playlist":document.getElementById("playlist"),
   "playlistHeader":document.getElementById("playlistHeader"),
-  "trackCount":document.getElementById("trackCount")
+  "trackCount":document.getElementById("trackCount"),
+  "urlForm":document.getElementById("urlForm"),
+  "urlInput":document.getElementById("urlInput"),
 }
 let tracks = []
 let currentTrack = -1;
@@ -93,6 +95,21 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
     ELEMENTS.trackCount.textContent = tracks.length
     AddTrackButtons()
 });
+
+async function AddTracksFromUrl(url){
+  if(url.endsWith(".txt")){
+    let data = (await (await fetch(url)).text()).split("\n")
+    for(let i = 0;i<data.length;i++){
+      AddTracksFromUrl(data[i])
+    }
+    return;
+  }
+  tracks.push(url)
+}
+ELEMENTS.urlForm.addEventListener('submit', async(ev)=>{
+  ev.preventDefault()
+  await AddTracksFromUrl(ELEMENTS.urlInput.value)
+})
 
 function StopAllTracks(){
   audioElement.pause()
