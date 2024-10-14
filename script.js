@@ -21,6 +21,8 @@ const ELEMENTS = {
 }
 let tracks = []
 let currentTrack = -1;
+let audioElement = document.createElement("audio")
+let volume = 1;
 
 async function LoadDataUrlFromFile(file){
   const reader = new FileReader();
@@ -51,20 +53,21 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
-  let audio = document.createElement("audio")
-  audio.controls = false
-  audio.setAttribute("name", file.name)
+  // let audio = document.createElement("audio")
+  // audio.controls = false
+  // audio.setAttribute("name", file.name)
 
-  audio.src = audioSrc
-  tracks.push(audio)
+  // audio.src = audioSrc
+  // tracks.push(audio)
+  tracks.push([file.name, audioSrc])
   // ELEMENTS.playlist.appendChild(audio)
 }
 
 function AddTrackButtons(){
   for(let i = 0;i<tracks.length;i++){
-    let e = tracks[i]
+    let e = tracks[i][1]
     let button = document.createElement('button')
-    button.textContent = e.getAttribute("name")
+    button.textContent = tracks[i][0]
     button.style.display = "block"
     button.onclick = ()=>{
       StopAllTracks()
@@ -75,7 +78,7 @@ function AddTrackButtons(){
   }
 
 }
-
+alert("test")
 ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged() {
     if (this.files.length === 0) {
       console.log('No file selected.');
@@ -92,10 +95,12 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
 });
 
 function StopAllTracks(){
-  tracks.forEach(e=>{
-    e.pause()
-    e.currentTime = 0;
-  })
+  audioElement.pause()
+  audioElement.currentTime = 0;
+  // tracks.forEach(e=>{
+  //   e.pause()
+  //   e.currentTime = 0;
+  // })
 }
 
 function PlayNextTrack(){
@@ -103,39 +108,46 @@ function PlayNextTrack(){
   StopAllTracks()
 
   currentTrack = (currentTrack+1)%tracks.length;
-  tracks[currentTrack].play()
-  ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
+  audioElement.src = tracks[currentTrack][1]
+
+  audioElement.play()
+  LoadVolumeChange()
+  ELEMENTS.current.textContent = tracks[currentTrack][0]
   document.title = "SPLP - "+ELEMENTS.current.textContent
 
-  tracks[currentTrack].addEventListener("ended", PlayNextTrack)
 }
 ELEMENTS.next.addEventListener("click", PlayNextTrack)
+audioElement.addEventListener("ended", PlayNextTrack)
+
 
 function UpdateStatus(){
   if(tracks.length==0)return;
   if(currentTrack==-1)PlayNextTrack()
   
   // Update time status
-  const timeString = new Date(tracks[currentTrack].currentTime * 1000).toISOString().substr(11, 8);
-  const durationString = new Date(tracks[currentTrack].duration * 1000).toISOString().substr(11, 8);
+  const timeString = new Date(audioElement.currentTime * 1000).toISOString().substr(11, 8);
+  const durationString = new Date(audioElement.duration * 1000).toISOString().substr(11, 8);
   ELEMENTS.time.textContent = timeString + " / " + durationString;
 
-  ELEMENTS.status.textContent = tracks[currentTrack].paused?"Paused":"Playing"
+  ELEMENTS.status.textContent = audioElement.paused?"Paused":"Playing"
+
 }
 setInterval(UpdateStatus, 100)
 
 ELEMENTS.play.addEventListener("click", ()=>{
   if(tracks.length==0)return;
-  tracks[currentTrack].play()
+  audioElement.play()
 })
 ELEMENTS.pause.addEventListener("click", ()=>{
   if(tracks.length==0)return;
-  tracks[currentTrack].pause()
+  audioElement.pause()
 })
+function LoadVolumeChange(){
+  audioElement.volume = volume
+}
 ELEMENTS.volume.addEventListener("input", ()=>{
-  for(let track of tracks){
-    track.volume = ELEMENTS.volume.value/100;
-  }
+  volume = ELEMENTS.volume.value/100;
+  LoadVolumeChange()
 })
 ELEMENTS.previous.addEventListener("click", ()=>{
   if(tracks.length==0)return;
