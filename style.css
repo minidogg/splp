@@ -13,3 +13,10 @@ body{
     background-color: black;
     color: white;
 }
+#container{
+    min-width: 290px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(0,0,90,0.5);
+}
