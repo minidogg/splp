@@ -97,19 +97,24 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
 });
 
 async function AddTracksFromUrl(url){
+  try{
   if(url.endsWith(".txt")){
     let data = (await (await fetch(url)).text()).split("\n")
     for(let i = 0;i<data.length;i++){
-      AddTracksFromUrl(data[i])
+      await AddTracksFromUrl(data[i])
     }
     return;
   }
-  tracks.push([/.*\/(.*)/.exec(url)[1], url])
+  let name = /.*\/(.*)/.exec(url)
+  tracks.push([name[1], url])
+}catch(err){
+  alert(err)
+}
 }
 ELEMENTS.urlForm.addEventListener('submit', async(ev)=>{
   ev.preventDefault()
-  ELEMENTS.urlInput.value = ""
   await AddTracksFromUrl(ELEMENTS.urlInput.value)
+  ELEMENTS.urlInput.value = ""
   AddTrackButtons()
 })
 
