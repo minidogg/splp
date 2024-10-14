@@ -54,11 +54,17 @@ async function AddAudio(file, dataUrl=undefined){
   ELEMENTS.playlist.appendChild(audio)
 }
 
-function AddTrackLabels(){
-  tracks.forEach(e=>{
-    let label = document.createElement('p')
-    label.textContent = e.getAttribute("name")
-    ELEMENTS.playlist.appendChild(label)
+function AddTrackButtons(){
+  tracks.forEach((e,i)=>{
+    let button = document.createElement('button')
+    button.textContent = e.getAttribute("name")
+    button.style.display = "block"
+    button.onclick = ()=>{
+      StopAllTracks()
+      currentTrack = i-1
+      PlayNextTrack()
+    }
+    ELEMENTS.playlist.appendChild(button)
   })
 }
 
@@ -73,7 +79,7 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
         let file = this.files[i]
         await AddAudio(file);
     }
-    AddTrackLabels()
+    AddTrackButtons()
 });
 
 function StopAllTracks(){
@@ -152,7 +158,7 @@ ELEMENTS.shuffle.addEventListener("click", ()=>{
   if(tracks.length==0)return;
   shuffle(tracks);
   ELEMENTS.playlist.innerHTML = ""
-  AddTrackLabels()
+  AddTrackButtons()
 
   currentTrack = -1;
   PlayNextTrack();
