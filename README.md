@@ -12,6 +12,10 @@ This is meant to be my pet project. If you are looking to work on an extensive a
 - Volume control
 - Pause/Play control
 - See current track name, status, and duration/current time
+- Loading from URL
+
+### Loading from URL
+When you load from URL you can provide a URL to a ".txt" file that includes a list of URLs to load from.
 
 ## Related Tools
 Most of these tools I have not created. This is simply just a list of tools you might find useful or related to this.  
