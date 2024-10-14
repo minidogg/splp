@@ -1,3 +1,7 @@
+window.addEventListener("beforeunload",confirmExit)
+    function confirmExit() {
+        return "You have attempted to leave this page. Are you sure?";
+    }
 //Automated by https://codepen.io/TheRealCrafterboy27/full/GRbPBeb
 const ELEMENTS = {
   "fileInput":document.getElementById("fileInput"),
