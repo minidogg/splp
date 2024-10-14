@@ -7,6 +7,7 @@ const ELEMENTS = {
   "play":document.getElementById("play"),
   "pause":document.getElementById("pause"),
   "next":document.getElementById("next"),
+  "previous":document.getElementById("previous"),
   "shuffle":document.getElementById("shuffle"),
   "status":document.getElementById("status"),
   "volume":document.getElementById("volume"),
@@ -71,12 +72,17 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
     
 });
 
-function PlayNextTrack(){
-  if(tracks.length==0)return;
+function StopAllTracks(){
   tracks.forEach(e=>{
     e.pause()
     e.currentTime = 0;
   })
+}
+
+function PlayNextTrack(){
+  if(tracks.length==0)return;
+  StopAllTracks()
+
   currentTrack = (currentTrack+1)%tracks.length;
   tracks[currentTrack].play()
   ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
@@ -91,11 +97,8 @@ function UpdateStatus(){
   if(currentTrack==-1)PlayNextTrack()
   
   // Update time status
-  const date = new Date(null);
-  date.setSeconds(tracks[currentTrack].currentTime);
-  const timeString = date.toISOString().substr(11, 8);
-  date.setSeconds(tracks[currentTrack].duration);
-  const durationString = date.toISOString().substr(11, 8);
+  const timeString = new Date(tracks[currentTrack].currentTime * 1000).toISOString().substr(11, 8);
+  const durationString = new Date(tracks[currentTrack].duration * 1000).toISOString().substr(11, 8);
   ELEMENTS.time.textContent = timeString + " / " + durationString;
 
   ELEMENTS.status.textContent = tracks[currentTrack].paused?"Paused":"Playing"
@@ -114,6 +117,16 @@ ELEMENTS.volume.addEventListener("input", ()=>{
   for(let track of tracks){
     track.volume = ELEMENTS.volume.value/100;
   }
+})
+ELEMENTS.previous.addEventListener("click", ()=>{
+  if(tracks.length==0)return;
+  StopAllTracks()
+  currentTrack = (currentTrack-1+tracks.length)%tracks.length;
+  tracks[currentTrack].play()
+  ELEMENTS.current.textContent = tracks[currentTrack].getAttribute("name")
+  document.title = "SPLP - "+ELEMENTS.current.textContent
+
+  tracks[currentTrack].addEventListener("ended", PlayNextTrack)
 })
 
 function shuffle(array) {
