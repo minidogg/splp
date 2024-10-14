@@ -5,3 +5,4 @@
 - Ability to remove tracks from playlist
 - Sleep timer
 - Time slider
+- Themes
