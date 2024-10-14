@@ -9,3 +9,7 @@ a{
     height:30vh;
     overflow-y: scroll;
 }
+body{
+    background-color: black;
+    color: white;
+}
