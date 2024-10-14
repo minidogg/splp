@@ -78,7 +78,7 @@ function AddTrackButtons(){
   }
 
 }
-alert("test")
+
 ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged() {
     if (this.files.length === 0) {
       console.log('No file selected.');
