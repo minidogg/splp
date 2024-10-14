@@ -1,6 +1,9 @@
 # SPLP
 Simple Playlist Player (SPLP) is meant to be a simple tool for loading audio files and listening to them.
 
+## Note
+This is meant to be my pet project. If you are looking to work on an extensive audio player, please just make your own or a fork of this one.
+
 ## Features
 - Playlist
 - Playlist shuffling
