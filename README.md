@@ -13,6 +13,8 @@ This is meant to be my pet project. If you are looking to work on an extensive a
 - Pause/Play control
 - See current track name, status, and duration/current time
 - Loading from URL
+- Switching to a track
+- Going to next/previous track.
 
 ### Loading from URL
 When you load from URL you can provide a URL to a ".txt" file that includes a list of URLs to load from.
