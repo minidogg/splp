@@ -1,1 +1,2 @@
 - Add zip file support
+- Make it so there are controls that can be accessed from the weird box that shows up on volume change.
