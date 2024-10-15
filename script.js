@@ -29,6 +29,7 @@ let tracks = []
 let currentTrack = -1;
 let audioElement = document.createElement("audio")
 let volume = 1;
+const compressionEnabled = false
 
 async function CorsProxyFetch(url="https://pastebin.com/raw/K0DUCQNt"){
   return await (await fetch("https://corsproxy.io/?"+encodeURIComponent(url))).text()
@@ -63,7 +64,14 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
- //audioSrc = LZString.compress(audioSrc)
+  if(compressionEnabled==true){
+    audioSrc = fflate.strToU8(audioSrc)
+    audioSrc = fflate.strFromU8(
+      fflate.compressSync(buf),
+      true
+    );
+  }
+  //audioSrc = LZString.compress(audioSrc)
   // let audio = document.createElement("audio")
   // audio.controls = false
   // audio.setAttribute("name", file.name)
@@ -162,7 +170,13 @@ function PlayNextTrack(){
 
   currentTrack = (currentTrack+1)%tracks.length;
   //audioElement.src = LZString.decompress(tracks[currentTrack][1])
-audioElement.src = tracks[currentTrack][1]
+  let audioSrc = tracks[currentTrack][1]
+  if(compressionEnabled==true){
+    audioSrc = fflate.decompressSync(
+      fflate.strToU8(audioSrc, true)
+    );
+  }
+audioElement.src = audioSrc
   audioElement.play()
   LoadVolumeChange()
   ELEMENTS.current.textContent = tracks[currentTrack][0]
