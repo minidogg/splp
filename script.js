@@ -72,18 +72,37 @@ async function AddAudio(file, dataUrl=undefined){
   // ELEMENTS.playlist.appendChild(audio)
 }
 
+// TODO: Find someway to optimize this
 function AddTrackButtons(){
+  ELEMENTS.playlist.innerHTML = ""
   for(let i = 0;i<tracks.length;i++){
-    let e = tracks[i][1]
-    let button = document.createElement('button')
-    button.textContent = tracks[i][0]
-    button.style.display = "block"
-    button.onclick = ()=>{
+    let a = i
+    let e = tracks[a][1]
+    let div = document.createElement("div")
+    div.classList.add("track")
+    
+    let nameButton = document.createElement('button')
+    nameButton.textContent = tracks[i][0]
+    nameButton.onclick = ()=>{
       StopAllTracks()
-      currentTrack = i-1
+      currentTrack = a-1
       PlayNextTrack()
     }
-    ELEMENTS.playlist.appendChild(button)
+    div.appendChild(nameButton)
+
+    let deleteButton = document.createElement("button")
+    deleteButton.textContent = "Remove"
+    deleteButton.onclick = ()=>{
+      if(currentTrack==a){
+        // StopAllTracks()
+        // currentTrack = currentTrack-1
+      }
+      tracks.splice(a,1)
+      AddTrackButtons()
+    }
+    div.appendChild(deleteButton)
+
+    ELEMENTS.playlist.appendChild(div)
   }
 
 }
