@@ -6,3 +6,4 @@
 - Themes
 - YouTube mp3 download proxy
 - Implement string compression
+- unspaghetti code
