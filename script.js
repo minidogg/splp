@@ -21,6 +21,7 @@ const ELEMENTS = {
   "themeText":document.getElementById("themeText"),
   "themeForeground":document.getElementById("themeForeground"),
   "themeFont":document.getElementById("themeFont"),
+  "timeSlider":document.getElementById("timeSlider")
 } 
 let tracks = []
 let currentTrack = -1;
@@ -149,7 +150,7 @@ audioElement.src = tracks[currentTrack][1]
 ELEMENTS.next.addEventListener("click", PlayNextTrack)
 audioElement.addEventListener("ended", PlayNextTrack)
 
-
+let prevTime = 100;
 function UpdateStatus(){
   if(tracks.length==0)return;
   if(currentTrack==-1)PlayNextTrack()
@@ -161,8 +162,17 @@ function UpdateStatus(){
 
   ELEMENTS.status.textContent = audioElement.paused?"Paused":"Playing"
 
+  if(ELEMENTS.timeSlider.value!=prevTime)audioElement.currentTime = ELEMENTS.timeSlider.value
+  ELEMENTS.timeSlider.max = audioElement.duration
+  ELEMENTS.timeSlider.min = 0
+  ELEMENTS.timeSlider.value = audioElement.currentTime
+  prevTime = ELEMENTS.timeSlider.value
 }
 setInterval(UpdateStatus, 100)
+
+ELEMENTS.timeSlider.addEventListener("change", function(){
+
+})
 
 function PlayTrack(){
   if(tracks.length==0)return;
