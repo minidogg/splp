@@ -288,11 +288,9 @@ function UpdateTheme(){
 document.getElementById("updateTheme").addEventListener("click", UpdateTheme)
 
 setInterval(function(){
-  if(ELEMENTS.sleepTimer.value<=0){
-    PauseTrack()
-    return;
-  }
+  if(ELEMENTS.sleepTimer.value<=0)PauseTrack()
   if(audioElement.paused==false)ELEMENTS.sleepTimer.value--;
+  if(ELEMENTS.sleepTimer.value<=0)PauseTrack()
 }, 60000)
 
 function UpdateMediaSession(){
