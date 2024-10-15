@@ -6,3 +6,4 @@
 - unspaghetti code
 - encryption/decryption
 - paste bin support
+- Show cover of track, name, and artist
