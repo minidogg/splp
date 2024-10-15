@@ -140,7 +140,7 @@ function PlayNextTrack(){
   LoadVolumeChange()
   ELEMENTS.current.textContent = tracks[currentTrack][0]
   document.title = "SPLP - "+ELEMENTS.current.textContent
-
+  UpdateMediaSession()
 }
 ELEMENTS.next.addEventListener("click", PlayNextTrack)
 audioElement.addEventListener("ended", PlayNextTrack)
@@ -160,14 +160,17 @@ function UpdateStatus(){
 }
 setInterval(UpdateStatus, 100)
 
-ELEMENTS.play.addEventListener("click", ()=>{
+function PlayTrack(){
   if(tracks.length==0)return;
   audioElement.play()
-})
-ELEMENTS.pause.addEventListener("click", ()=>{
+}
+function PauseTrack(){
   if(tracks.length==0)return;
   audioElement.pause()
-})
+}
+ELEMENTS.play.addEventListener("click", PlayTrack)
+ELEMENTS.pause.addEventListener("click", PauseTrack)
+
 function LoadVolumeChange(){
   audioElement.volume = volume
 }
@@ -175,7 +178,8 @@ ELEMENTS.volume.addEventListener("input", ()=>{
   volume = ELEMENTS.volume.value/100;
   LoadVolumeChange()
 })
-ELEMENTS.previous.addEventListener("click", ()=>{
+
+function PlayPreviousTrack(){
   if(tracks.length==0)return;
   StopAllTracks()
   currentTrack = (currentTrack-2+tracks.length)%tracks.length;
@@ -185,7 +189,8 @@ ELEMENTS.previous.addEventListener("click", ()=>{
   // document.title = "SPLP - "+ELEMENTS.current.textContent
 
   // tracks[currentTrack].addEventListener("ended", PlayNextTrack)
-})
+}
+ELEMENTS.previous.addEventListener("click", PlayPreviousTrack)
 
 function shuffle(array) {
   let currentIndex = array.length;
@@ -229,3 +234,53 @@ function UpdateTheme(){
   localStorage.setItem("theme", document.getElementById("theme").innerHTML)
 }
 document.getElementById("updateTheme").addEventListener("click", UpdateTheme)
+
+function UpdateMediaSession(){
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: "SPLP - "+(tracks.length==0?"None":tracks[currentTrack][0]),
+      // artist: "Podcast Host",
+      // album: "Podcast Name",
+      // artwork: [{ src: "podcast.jpg" }],
+    });
+
+    
+  navigator.mediaSession.setActionHandler("play", () => {
+    PlayTrack()
+  });
+  navigator.mediaSession.setActionHandler("pause", () => {
+    PauseTrack()
+  });
+  // navigator.mediaSession.setActionHandler("stop", () => {
+  //   /* Code excerpted. */
+  // });
+  // navigator.mediaSession.setActionHandler("seekbackward", () => {
+  //   /* Code excerpted. */
+  // });
+  // navigator.mediaSession.setActionHandler("seekforward", () => {
+  //   /* Code excerpted. */
+  // });
+  // navigator.mediaSession.setActionHandler("seekto", () => {
+  //   /* Code excerpted. */
+  // });
+  navigator.mediaSession.setActionHandler("previoustrack", () => {
+    PlayPreviousTrack()
+  });
+  navigator.mediaSession.setActionHandler("nexttrack", () => {
+    PlayNextTrack()
+  });
+  // navigator.mediaSession.setActionHandler("skipad", () => {
+  //   /* Code excerpted. */
+  // });
+  // navigator.mediaSession.setActionHandler("togglecamera", () => {
+  //   /* Code excerpted. */
+  // });
+  // navigator.mediaSession.setActionHandler("togglemicrophone", () => {
+  //   /* Code excerpted. */
+  // });
+  // navigator.mediaSession.setActionHandler("hangup", () => {
+  //   /* Code excerpted. */
+  // });
+  }  
+}
+UpdateMediaSession()
