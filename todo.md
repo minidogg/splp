@@ -1,6 +1,5 @@
 - Add zip file support (and add loading zip from url)
 - Icons
-- Ability to remove tracks from playlist
 - Sleep timer
 - Themes
 - YouTube mp3 download proxy
