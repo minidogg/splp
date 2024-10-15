@@ -57,6 +57,7 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
+  audioSrc = LZString.compress(audioSrc)
   // let audio = document.createElement("audio")
   // audio.controls = false
   // audio.setAttribute("name", file.name)
@@ -134,7 +135,7 @@ function PlayNextTrack(){
   StopAllTracks()
 
   currentTrack = (currentTrack+1)%tracks.length;
-  audioElement.src = tracks[currentTrack][1]
+  audioElement.src = LZString.decompress(tracks[currentTrack][1])
 
   audioElement.play()
   LoadVolumeChange()
