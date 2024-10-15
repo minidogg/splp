@@ -19,6 +19,7 @@ This is meant to be my pet project. If you are looking to work on an extensive a
 - Time Slider
 - Partial Theme Control (WIP)
 - Remove Tracks
+- Sleep Timer
 
 ### Loading from URL
 When you load from URL you can provide a URL to a ".txt" file that includes a list of URLs to load from.
