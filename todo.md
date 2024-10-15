@@ -7,3 +7,5 @@
 - YouTube mp3 download proxy
 - Implement string compression
 - unspaghetti code
+- encryption/decryption
+- paste bin support
