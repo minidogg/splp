@@ -23,7 +23,9 @@ const ELEMENTS = {
   "themeFont":document.getElementById("themeFont"),
   "timeSlider":document.getElementById("timeSlider"),
   "autoPlay":document.getElementById("autoPlay"),
-  "sleepTimer":document.getElementById("sleepTimer")
+  "sleepTimer":document.getElementById("sleepTimer"),
+  "themeBackgroundImg":document.getElementById("themeBackgroundImg"),
+  "resetTheme":document.getElementById("resetTheme")
 } 
 let tracks = []
 let currentTrack = -1;
@@ -274,6 +276,17 @@ function SanitizeCSSValue(text){
 }
 
 if(localStorage.getItem("theme")!=null)document.getElementById("theme").innerHTML=localStorage.getItem("theme")
+if(localStorage.getItem("background")!=null)document.body.style.backgroundImage=localStorage.getItem('background')
+
+ELEMENTS.themeBackgroundImg.addEventListener("change", async function(){
+  if (this.files.length === 0) {
+    console.log('No file selected.');
+    return;
+  }
+  let imgUrl = await LoadDataUrlFromFile(this.files[0])
+  document.body.style.backgroundImage = `url(${imgUrl})`
+  localStorage.setItem("background", document.body.style.backgroundImage)
+})
 function UpdateTheme(){
   document.getElementById("theme").innerHTML = `
     :root{
@@ -286,6 +299,10 @@ function UpdateTheme(){
   localStorage.setItem("theme", document.getElementById("theme").innerHTML)
 }
 document.getElementById("updateTheme").addEventListener("click", UpdateTheme)
+ELEMENTS.resetTheme.addEventListener('click', function(){
+  localStorage.removeItem("theme")
+  localStorage.removeItem("background")
+})
 
 setInterval(function(){
   if(ELEMENTS.sleepTimer.value<=0)PauseTrack()
