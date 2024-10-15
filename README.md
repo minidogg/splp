@@ -16,6 +16,7 @@ This is meant to be my pet project. If you are looking to work on an extensive a
 - Switching to a track
 - Going to next/previous track.
 - Media Player Controls
+- Time Slider
 - Partial Theme Control (WIP)
 
 ### Loading from URL
