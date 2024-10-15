@@ -92,6 +92,7 @@ function AddTrackButtons(){
 
     let deleteButton = document.createElement("button")
     deleteButton.textContent = "Remove"
+    deleteButton.style.color = "red"
     deleteButton.onclick = ()=>{
       if(currentTrack==a){
         // StopAllTracks()
