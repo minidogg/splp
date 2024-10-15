@@ -21,7 +21,8 @@ const ELEMENTS = {
   "themeText":document.getElementById("themeText"),
   "themeForeground":document.getElementById("themeForeground"),
   "themeFont":document.getElementById("themeFont"),
-  "timeSlider":document.getElementById("timeSlider")
+  "timeSlider":document.getElementById("timeSlider"),
+  "autoPlay":document.getElementById("autoPlay"),
 } 
 let tracks = []
 let currentTrack = -1;
@@ -168,7 +169,9 @@ audioElement.src = tracks[currentTrack][1]
   UpdateMediaSession()
 }
 ELEMENTS.next.addEventListener("click", PlayNextTrack)
-audioElement.addEventListener("ended", PlayNextTrack)
+audioElement.addEventListener("ended", ()=>{
+  if(ELEMENTS.autoPlay.checked==true)PlayNextTrack()
+})
 
 let prevTime = 100;
 function UpdateStatus(){

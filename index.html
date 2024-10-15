@@ -34,15 +34,20 @@
     <div id="controls">
         <h2>Controls</h2>
         <p>Current Track: <span id="current">None</span></p>
+        <p>Status: <span id="status">None</span></p>
         <p>Current Time: <span id="time">00:00:00 / 00:00:00</span></p>
         <input type="range" value="100" id="timeSlider" min="0" max="100">
-        <p>Status: <span id="status">None</span></p>
+        <br>
+        <br>
 
         <button id="play">Play</button>
         <button id="pause">Pause</button>
         <button id="next">Next</button>
         <button id="previous">Previous</button>
         <button id="shuffle">Shuffle</button>
+        <br>
+        <label for="autoPlay">Auto-Play</label>
+        <input id="autoPlay" type="checkbox" checked="true">
         
         <br>
         <label for="volume">Volume</label>
