@@ -23,6 +23,7 @@ const ELEMENTS = {
   "themeFont":document.getElementById("themeFont"),
   "timeSlider":document.getElementById("timeSlider"),
   "autoPlay":document.getElementById("autoPlay"),
+  "sleepTimer":document.getElementById("sleepTimer")
 } 
 let tracks = []
 let currentTrack = -1;
@@ -271,6 +272,14 @@ function UpdateTheme(){
   localStorage.setItem("theme", document.getElementById("theme").innerHTML)
 }
 document.getElementById("updateTheme").addEventListener("click", UpdateTheme)
+
+setInterval(function(){
+  if(ELEMENTS.sleepTimer.value<=0){
+    PauseTrack()
+    return;
+  }
+  if(audioElement.paused==false)ELEMENTS.sleepTimer.value--;
+}, 60000)
 
 function UpdateMediaSession(){
   if ("mediaSession" in navigator) {
