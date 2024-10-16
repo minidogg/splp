@@ -7,3 +7,4 @@
 - encryption/decryption
 - paste bin support
 - Show cover of track, name, and artist
+- Redesign the layout
