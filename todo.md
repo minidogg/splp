@@ -1,4 +1,4 @@
-- Add zip file support (and add loading zip from url)
+- Add zip file support (and loading zip from url)
 - Icons
 - Themes
 - YouTube mp3 download proxy
