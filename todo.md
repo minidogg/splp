@@ -1,6 +1,6 @@
 - Add zip file support (and loading zip from url)
 - Icons
-- Themes
+- Halloween Theme
 - YouTube mp3 download proxy
 - Implement string compression
 - unspaghetti code
