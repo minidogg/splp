@@ -360,8 +360,9 @@ function UpdateMediaSession(){
 }
 UpdateMediaSession()
 
+
 window.addEventListener("keypress", (ev)=>{
-  if(ev.ctrlKey==true && ev.shiftKey == true && ev.key=="k"){
+  if(ev.ctrlKey==true && ev.shiftKey == true && ev.key=="K"){
     OpenGDevTools()
   }
 })
