@@ -70,7 +70,7 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
-  let tmpAudio = new Audio(audioSrc)
+  // let tmpAudio = new Audio(audioSrc)
   // console.log(tmpAudio)
   // tmpAudio.load()
   // tmpAudio.preload = true
