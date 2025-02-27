@@ -129,7 +129,10 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
     }
     
 
+    ELEMENTS.trackCount.textContent = "Loading..."
+    let originalCount = tracks.length
     for(let i = 0;i<this.files.length;i++){
+        ELEMENTS.trackCount.textContent = `Loading ${i}/${this.files.length} + ${originalCount}`
         let file = this.files[i]
         await AddAudio(file);
     }
