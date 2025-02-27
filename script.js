@@ -50,6 +50,7 @@ async function LoadDataUrlFromFile(file){
   })
 }
 
+const mutag = window.mutag;
 let playlistEstimatedLength = 0
 async function AddAudio(file, dataUrl=undefined){
 
@@ -70,6 +71,14 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
+
+  let trackName = file.name
+  try{
+    let tags = await mutag.fetch(file)
+    // I can't believe this is the tag name.
+    trackName = tags["TIT2"] || file.name
+  }catch(err){}
+
   // let tmpAudio = new Audio(audioSrc)
   // console.log(tmpAudio)
   // tmpAudio.load()
@@ -97,7 +106,7 @@ async function AddAudio(file, dataUrl=undefined){
 
   // audio.src = audioSrc
   // tracks.push(audio)
-  tracks.push([file.name, audioSrc])
+  tracks.push([trackName, audioSrc])
   // ELEMENTS.playlist.appendChild(audio)
 }
 
