@@ -73,15 +73,14 @@ async function AddAudio(file, dataUrl=undefined){
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
 
   let trackName = file.name
-  try{
-    let tags = await mutag.fetch(file)
-    // I can't believe this is the tag name.
-    trackName = tags["TIT2"] || file.name
-    console.log("b")
-  }catch(err){
-    console.warn(err)
-    console.log("error in loading track")
-  }
+  // try{
+  //   let tags = await mutag.fetch(file)
+  //   // I can't believe this is the tag name.
+  //   trackName = tags["TIT2"] || file.name
+  // }catch(err){
+  //   console.warn(err)
+  //   console.log("error in loading track")
+  // }
 
   // let tmpAudio = new Audio(audioSrc)
   // console.log(tmpAudio)
