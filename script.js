@@ -225,8 +225,9 @@ function UpdateStatus(){
   if(currentTrack==-1)PlayNextTrack()
   
   // Update time status
-  const timeString = new Date(audioElement.currentTime * 1000).toISOString().substr(11, 8);
-  const durationString = new Date(audioElement.duration * 1000).toISOString().substr(11, 8);
+  const formatTime = seconds => new Date(seconds * 1000).toISOString().slice(11, 19);
+  const timeString = formatTime(audioElement.currentTime);
+  const durationString = formatTime(audioElement.duration);
   ELEMENTS.time.textContent = timeString + " / " + durationString;
 
   ELEMENTS.status.textContent = audioElement.paused?"Paused":"Playing"
