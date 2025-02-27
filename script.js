@@ -77,6 +77,7 @@ async function AddAudio(file, dataUrl=undefined){
     let tags = await mutag.fetch(file)
     // I can't believe this is the tag name.
     trackName = tags["TIT2"] || file.name
+    console.log("b")
   }catch(err){}
 
   // let tmpAudio = new Audio(audioSrc)
