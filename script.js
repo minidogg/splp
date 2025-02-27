@@ -27,7 +27,8 @@ const ELEMENTS = {
   "autoPlay":document.getElementById("autoPlay"),
   "sleepTimer":document.getElementById("sleepTimer"),
   "themeBackgroundImg":document.getElementById("themeBackgroundImg"),
-  "resetTheme":document.getElementById("resetTheme")
+  "resetTheme":document.getElementById("resetTheme"),
+  "estimatedTimeLength":document.getElementById("estimatedTimeLength"),
 } 
 let tracks = []
 let currentTrack = -1;
@@ -49,6 +50,7 @@ async function LoadDataUrlFromFile(file){
   })
 }
 
+let playlistEstimatedLength = 0
 async function AddAudio(file, dataUrl=undefined){
 
   if(typeof(file)!="undefined" && file.type == "application/x-zip-compressed"){
@@ -68,6 +70,18 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
+  let tmpAudio = new Audio(audioSrc)
+  console.log(tmpAudio)
+  tmpAudio.load()
+  tmpAudio.preload = true
+  setTimeout(()=>{
+    if(isNaN(tmpAudio.duration)||!isFinite(tmpAudio.duration))return
+    console.log(tmpAudio.duration)
+    playlistEstimatedLength+=tmpAudio.duration
+    ELEMENTS.estimatedTimeLength.textContent = playlistEstimatedLength/60
+    tmpAudio.remove()
+  }, 100)
+
   if(compressionEnabled==true){
     audioSrc = fflate.strToU8(audioSrc)
     audioSrc = fflate.strFromU8(
