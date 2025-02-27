@@ -78,7 +78,10 @@ async function AddAudio(file, dataUrl=undefined){
     // I can't believe this is the tag name.
     trackName = tags["TIT2"] || file.name
     console.log("b")
-  }catch(err){}
+  }catch(err){
+    console.warn(err)
+    console.log("error in loading track")
+  }
 
   // let tmpAudio = new Audio(audioSrc)
   // console.log(tmpAudio)
