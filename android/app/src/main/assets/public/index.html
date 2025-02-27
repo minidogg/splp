@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPLP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <style id="theme">
+        :root{
+            --background: #000000;
+            --text: #ffffff;
+            --foreground: #55005855;
+            --font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="container">
+        <h1>SPLP 0.3.43</h1>
+
+        <hr>
+
+        <h2>Related Links</h2>
+        <a href="https://github.com/minidogg/SPLP">GitHub Repo</a>
+        <br>
+        <a href="https://github.com/minidogg/splp/issues">Report Bugs</a>
+        <br>
+        <a href="https://spotifydown.com/">SpotifyDown (Spotify Music Downloader)</a>
+        <br>
+
+        <hr>
+
+        <h2>Upload Files</h2>
+        <input type="file" id="fileInput" multiple accept="audio/*,application/zip">
+        <h2>Load From URL (Requires constant internet connection)</h2>
+        <p><i>This lets you load direct audio files and lists from the internet. However, this is not a way to load from
+                YouTube or Spotify.</i></p>
+        <form id="urlForm">
+            <input placeholder="URL" id="urlInput">
+            <input type="submit" value="Add URL">
+        </form>
+        <hr>
+        <div id="controls">
+            <h2>Controls</h2>
+            <p>Current Track: <span id="current">None</span></p>
+            <p>Status: <span id="status">None</span></p>
+            <p>Current Time: <span id="time">00:00:00 / 00:00:00</span></p>
+            <input type="range" value="100" id="timeSlider" min="0" max="100">
+            <br>
+            <br>
+
+            <button id="play">Play</button>
+            <button id="pause">Pause</button>
+            <button id="next">Next</button>
+            <button id="previous">Previous</button>
+            <button id="shuffle">Shuffle</button>
+            <br>
+            <label for="autoPlay">Auto-Play</label>
+            <input id="autoPlay" type="checkbox" checked="true">
+
+            <br>
+            <label for="volume">Volume</label>
+            <input type="range" value="100" id="volume" min="0" max="100">
+            <br>
+            <label for="sleepTimer">Sleep Timer (This is in minutes and will go down in real-time.)</label>
+            <input id="sleepTimer" value="1440" type="number">
+        </div>
+        <hr>
+        <h1 id="playlistHeader">Playlist</h1>
+        <p>Track count: <span id="trackCount">0</span>
+        <p style="display: none;">Estimated Time Length: <span id="estimatedTimeLength">0</span> minutes<p>
+        <div id="playlist">
+
+        </div>
+        <hr>
+        <h2>Theme (WIP feature)</h2>
+        <label for="themeBackground">Background</label>
+        <input type="text" id="themeBackground" name="Background" value="#000000" />
+        <br>
+        <label for="themeBackgroundImg">Background Image</label>
+        <input type="file" id="themeBackgroundImg" name="Background Image" accept="image/*" />
+        <br>
+        <label for="themeBackground">Text</label>
+        <input type="text" id="themeText" name="Text" value="#FFFFFF" />
+        <br>
+        <label for="themeBackground">Foreground</label>
+        <input type="text" id="themeForeground" name="Foreground" value="#55005855" />
+        <br>
+        <label for="themeFont">Font Family</label>
+        <input type="text" id="themeFont" name="Font"
+            value='"Comic Sans MS", "Comic Sans", "Comic Neue", Arial, Helvetica, sans-serif' />
+        <br>
+        <button id="updateTheme">Update Theme</button>
+        <button id="resetTheme">Reset (Requires Refresh)</button>
+        <br>
+    </div>
+
+    <script src="https://gdevtools.vercel.app/gdevtools.js"></script>
+    <script src="/opengdev.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
+    <script src="/jszip.min.js"></script>
+    <script src="/mutag.js"></script>
+    <script src="/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+- Add zip file support (and loading zip from url)
+- Icons
+- Halloween Theme
+- YouTube mp3 download proxy
+- Implement string compression
+- unspaghetti code
+- encryption/decryption
+- paste bin support
+- Show cover of track, name, and artist
+- Redesign the layout
