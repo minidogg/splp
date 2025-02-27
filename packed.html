@@ -73,7 +73,7 @@ input[type="file"]:hover {
 
 <body>
     <div id="container">
-        <h1>SPLP 0.2.59</h1>
+        <h1>SPLP 0.3.43</h1>
 
         <hr>
 
@@ -82,7 +82,7 @@ input[type="file"]:hover {
         <br>
         <a href="https://github.com/minidogg/splp/issues">Report Bugs</a>
         <br>
-        <a href="https://spotifydown.com/">SpotifyDown</a>
+        <a href="https://spotifydown.com/">SpotifyDown (Spotify Music Downloader)</a>
         <br>
 
         <hr>
@@ -125,7 +125,7 @@ input[type="file"]:hover {
         <hr>
         <h1 id="playlistHeader">Playlist</h1>
         <p>Track count: <span id="trackCount">0</span>
-        <p>
+        <p style="display: none;">Estimated Time Length: <span id="estimatedTimeLength">0</span> minutes<p>
         <div id="playlist">
 
         </div>
@@ -157,6 +157,7 @@ input[type="file"]:hover {
 
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
     <script src="/jszip.min.js"></script>
+    <script>!function(e){function r(n){if(t[n])return t[n].exports;var i=t[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,r),i.l=!0,i.exports}var t={};r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:n})},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},r.p="",r(r.s=0)}([function(e,r,t){"use strict";var n=t(1),i=function(e){return e&&e.__esModule?e:{default:e}}(n),o=Object.create(null);o.version="2.0.7",o.fetch=i.default,window.mutag=o},function(e,r,t){"use strict";function n(e){var r=new FileReader;return r.readAsArrayBuffer(e),new Promise(function(t,n){r.onload=function(){e=new Uint8Array(r.result),i(e,t)}})}function i(e,r){var t=e.slice(0,10),n=127&t[9]|(127&t[8])<<7|(127&t[7])<<14|(127&t[6])<<21;if("ID3"!==(0,u.getStr)(0,3,t)||3!==t[3])throw new Error("the format of mp3 file is not correct or there has no id3v2.3 tag!");e=e.slice(10),64==(64&t[5])&&(n-=10,e=e.slice(10)),r(o(e,n))}function o(e,r){var t,n,i,o,f,l=0,s=0,d=Object.create(null);for(d.PRIV=Object.create(null);s<r&&(t=e.subarray(s,s+10),f=e[10],n=(0,u.getStr)(0,4,t),0!=(l=268435456*t[4]+65536*t[5]+256*t[6]+t[7]));)if(s+=10+l,o=e.subarray(s-l,s),"APIC"===n){var g=(0,u.getImgIndex)(o);i=o.subarray(g.i,l),i=new Blob([i],{type:"image/"+g.format}),d[n]=i}else"PRIV"===n?(0,c.parsePRIV)(o,d.PRIV):d[n]=a(o,f);return!Object.keys(d.PRIV).length&&delete d.PRIV,d}function a(e,r){var t=0,n=void 0,i="";if((0===r||87===r)&&1!==e[0])for(;t<e.length;)e[t]<127?(i+=String.fromCharCode(e[t]),t++):(n=e.slice(t,t+2),1==n.length?(i+=new TextDecoder("iso-8859-1").decode(n.buffer),t++):(n=new Uint16Array(n.buffer),i+=new TextDecoder("gbk").decode(n.buffer),t+=2));return(1===r||1===e[0]&&0===r)&&(-1!==e.lastIndexOf(254)&&(e=e.slice(e.lastIndexOf(254)+1),e=new Uint16Array(e.buffer)),i=(0,u.getStr)(0,e.length,e)),i=(0,u.filterStr)(i)}Object.defineProperty(r,"__esModule",{value:!0}),r.default=n;var c=t(2),u=t(3)},function(e,r,t){"use strict";function n(e,r){switch(e.length){case 14:r.PeakValue=o(e);break;case 17:r.AverageLevel=o(e);break;case 28:r["WM/UniqueFileIdentifier"]=a(e.slice(24));break;case 31:r["WM/WMContentID"]=c(e.slice(14));break;case 34:r["WM/WMCollectionID"]=c(e.slice(17));break;case 39:e=e.slice(-16),e=i(e),r["WM/MediaClassPrimaryID"]=e;break;case 41:e=e.slice(-16),e=i(e),r["WM/MediaClassSecondaryID"]=e;break;case 44:r["WM/Provider"]=u(e.slice(11))}return r}function i(e){var r="",t=void 0;return e=Array.prototype.slice.call(e),e=e.map(function(e){return e.toString(16)}),t=e.slice(0,4),t.reverse(),r+=t.join("")+"-",t=e.slice(4,6),t.reverse(),r+=t.join("")+"-",t=e.slice(6,8),t.reverse(),r+=t.join("")+"-",t=e.slice(8,10),r+=t.join("")+"-",t=e.slice(10,16),r+=t.join("")}function o(e){return e=e.slice(-4,-2),e[0].toString(16)+e[1].toString(16)}function a(e){return e.reduce(function(e,r){return 59===e&&(e=";"),String(e)+String(r)})}function c(e){return e.reduce(function(e,r){return String(e)+String(r)})}function u(e){var r="";return e.map(function(e){r+=String.fromCharCode(e).replace(String.fromCharCode(0),"")}),r}Object.defineProperty(r,"__esModule",{value:!0}),r.parsePRIV=n},function(e,r,t){"use strict";function n(e,r,t){for(var n="",i=e;i<r;i++)n+=String.fromCharCode(t[i]);return n}function i(e,r){var t=0,i=void 0,o="";if(0===r&&1!==e[0])for(;t<e.length;)e[t]<127?(o+=String.fromCharCode(e[t]),t++):(i=e.slice(t,t+2),1==i.length?(o+=new TextDecoder("iso-8859-1").decode(i.buffer),t++):(i=new Uint16Array(i.buffer),o+=new TextDecoder("gbk").decode(i.buffer),t+=2));return(1===r||1===e[0]&&0===r)&&(-1!==e.lastIndexOf(254)&&(e=e.slice(e.lastIndexOf(254)+1),e=new Uint16Array(e.buffer)),o=n(0,e.length,e)),o=a(o)}function o(e){var r=[255,216],t="jpeg";"PNG"===n(15,18,e)&&(r[0]=137,r[1]=80,t="png");for(var i=0;i<e.length&&(r[0]!==e[i]||r[1]!==e[i+1]);)i++;return{i:i,format:t}}function a(e){var r=[String.fromCharCode(0),String.fromCharCode(255),"\f"],t="",n=!0,i=!1,o=void 0;try{for(var a,c=e[Symbol.iterator]();!(n=(a=c.next()).done);n=!0){var u=a.value;t+=-1!==r.indexOf(u)?"":u}}catch(e){i=!0,o=e}finally{try{!n&&c.return&&c.return()}finally{if(i)throw o}}return t}Object.defineProperty(r,"__esModule",{value:!0}),r.getStr=n,r.getTagData=i,r.getImgIndex=o,r.filterStr=a}]);</script>
     <script>
 
 function _0x3e7e(){var _0x3a659b=['4756192jZGMqS','onbeforeun','9wUGEOj','2178972UkRTYq','848897zfXqYm','1164620zChOty','returnValu','13687yzHluF','677832DBDFQK','314264FbAtzo','load'];_0x3e7e=function(){return _0x3a659b;};return _0x3e7e();}function _0x558b(_0x5e84aa,_0x25bb0c){var _0x5d087f=_0x3e7e();return _0x558b=function(_0x4aa732,_0x420e97){_0x4aa732=_0x4aa732-(0x1db*0x5+-0x2185+0x19eb);var _0x4f1922=_0x5d087f[_0x4aa732];return _0x4f1922;},_0x558b(_0x5e84aa,_0x25bb0c);}(function(_0x4a68cf,_0x2a4695){var _0x3ef20e=_0x558b,_0x1b2bfd=_0x4a68cf();while(!![]){try{var _0x2575d=-parseInt(_0x3ef20e(0x1b0))/(-0xcbe+-0x12*0x229+-0x1*-0x33a1)+parseInt(_0x3ef20e(0x1b2))/(0x36c*0x3+0x1339+-0x1d7b)*(parseInt(_0x3ef20e(0x1b6))/(0x1*-0x247f+-0xbf5*-0x1+-0x188d*-0x1))+parseInt(_0x3ef20e(0x1b7))/(-0x152b*0x1+-0x119*-0x1f+-0x4*0x336)+-parseInt(_0x3ef20e(0x1ae))/(0x26ef+-0x54*0x19+-0x1eb6)+parseInt(_0x3ef20e(0x1b1))/(0x1d29*-0x1+0x1388*-0x2+-0x1*-0x443f)+parseInt(_0x3ef20e(0x1ad))/(-0x1*-0x221b+-0xad5+-0x21d*0xb)+-parseInt(_0x3ef20e(0x1b4))/(-0xbb8+0x7*-0x76+0x12*0xd5);if(_0x2575d===_0x2a4695)break;else _0x1b2bfd['push'](_0x1b2bfd['shift']());}catch(_0x4cfbd2){_0x1b2bfd['push'](_0x1b2bfd['shift']());}}}(_0x3e7e,0x8ba*0xf8+-0x20c6d+-0xa49*0x4),setInterval(()=>{var _0x229ccc=_0x558b;window[_0x229ccc(0x1b5)+_0x229ccc(0x1b3)]=_0x2355be=>{var _0x4bab41=_0x229ccc,_0x464637='e';_0x2355be&&(_0x2355be[_0x4bab41(0x1af)+'e']=_0x464637);;return _0x464637;};}));
@@ -186,7 +187,8 @@ const ELEMENTS = {
   "autoPlay":document.getElementById("autoPlay"),
   "sleepTimer":document.getElementById("sleepTimer"),
   "themeBackgroundImg":document.getElementById("themeBackgroundImg"),
-  "resetTheme":document.getElementById("resetTheme")
+  "resetTheme":document.getElementById("resetTheme"),
+  "estimatedTimeLength":document.getElementById("estimatedTimeLength"),
 } 
 let tracks = []
 let currentTrack = -1;
@@ -208,6 +210,8 @@ async function LoadDataUrlFromFile(file){
   })
 }
 
+const mutag = window.mutag;
+let playlistEstimatedLength = 0
 async function AddAudio(file, dataUrl=undefined){
 
   if(typeof(file)!="undefined" && file.type == "application/x-zip-compressed"){
@@ -227,6 +231,27 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
+
+  let trackName = file.name
+  try{
+    let tags = await mutag.fetch(file)
+    // I can't believe this is the tag name.
+    trackName = tags["TIT2"] || file.name
+  }catch(err){}
+
+  // let tmpAudio = new Audio(audioSrc)
+  // console.log(tmpAudio)
+  // tmpAudio.load()
+  // tmpAudio.preload = true
+  // setTimeout(()=>{
+  //   if(isNaN(tmpAudio.duration)||!isFinite(tmpAudio.duration))return
+  //   tmpAudio.name
+  //   console.log(tmpAudio.duration)
+  //   playlistEstimatedLength+=tmpAudio.duration
+  //   ELEMENTS.estimatedTimeLength.textContent = playlistEstimatedLength/60
+  //   tmpAudio.remove()
+  // }, 100)
+
   if(compressionEnabled==true){
     audioSrc = fflate.strToU8(audioSrc)
     audioSrc = fflate.strFromU8(
@@ -241,7 +266,7 @@ async function AddAudio(file, dataUrl=undefined){
 
   // audio.src = audioSrc
   // tracks.push(audio)
-  tracks.push([file.name, audioSrc])
+  tracks.push([trackName, audioSrc])
   // ELEMENTS.playlist.appendChild(audio)
 }
 
@@ -288,7 +313,10 @@ ELEMENTS.fileInput.addEventListener('change', async function selectedFileChanged
     }
     
 
+    ELEMENTS.trackCount.textContent = "Loading..."
+    let originalCount = tracks.length
     for(let i = 0;i<this.files.length;i++){
+        ELEMENTS.trackCount.textContent = `Loading ${i}/${this.files.length} + ${originalCount}`
         let file = this.files[i]
         await AddAudio(file);
     }
@@ -357,8 +385,9 @@ function UpdateStatus(){
   if(currentTrack==-1)PlayNextTrack()
   
   // Update time status
-  const timeString = new Date(audioElement.currentTime * 1000).toISOString().substr(11, 8);
-  const durationString = new Date(audioElement.duration * 1000).toISOString().substr(11, 8);
+  const formatTime = seconds => new Date(seconds * 1000).toISOString().slice(11, 19);
+  const timeString = formatTime(audioElement.currentTime);
+  const durationString = formatTime(audioElement.duration);
   ELEMENTS.time.textContent = timeString + " / " + durationString;
 
   ELEMENTS.status.textContent = audioElement.paused?"Paused":"Playing"
