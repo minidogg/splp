@@ -70,17 +70,17 @@ async function AddAudio(file, dataUrl=undefined){
   }
 
   let audioSrc = dataUrl==undefined?await LoadDataUrlFromFile(file):dataUrl
-  let tmpAudio = new Audio(audioSrc)
-  console.log(tmpAudio)
-  tmpAudio.load()
-  tmpAudio.preload = true
-  setTimeout(()=>{
-    if(isNaN(tmpAudio.duration)||!isFinite(tmpAudio.duration))return
-    console.log(tmpAudio.duration)
-    playlistEstimatedLength+=tmpAudio.duration
-    ELEMENTS.estimatedTimeLength.textContent = playlistEstimatedLength/60
-    tmpAudio.remove()
-  }, 100)
+  // let tmpAudio = new Audio(audioSrc)
+  // console.log(tmpAudio)
+  // tmpAudio.load()
+  // tmpAudio.preload = true
+  // setTimeout(()=>{
+  //   if(isNaN(tmpAudio.duration)||!isFinite(tmpAudio.duration))return
+  //   console.log(tmpAudio.duration)
+  //   playlistEstimatedLength+=tmpAudio.duration
+  //   ELEMENTS.estimatedTimeLength.textContent = playlistEstimatedLength/60
+  //   tmpAudio.remove()
+  // }, 100)
 
   if(compressionEnabled==true){
     audioSrc = fflate.strToU8(audioSrc)
